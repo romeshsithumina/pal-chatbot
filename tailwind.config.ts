@@ -22,7 +22,8 @@ const config: Config = {
         dark: {
           800: "#101012",
           500: "#18181B",
-          300: "#2B2B2B",
+          400: "#1F1F23",
+          300: "#2B2B2B", // border
         },
         light: {
           800: "#FAFAFA",
