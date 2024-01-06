@@ -1,7 +1,10 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import Link from "next/link";
 
-const BotChatBubble = () => {
+interface BotChatBubbleProps {
+  message: string;
+}
+
+const BotChatBubble = ({ message }: BotChatBubbleProps) => {
   return (
     <div className="">
       <div className=" py-10">
@@ -19,9 +22,7 @@ const BotChatBubble = () => {
         </div>
         <div className="flex flex-col">
           <div className="bg-dark-400 max-w-[500px] text-light-800 rounded-3xl rounded-tl-none p-4 ml-10">
-            Hello there, this is Pal Hello thereHello there, this is Pal Hello
-            thereHello there, this is Pal Hello thereHello there, this is Pal
-            Hello thereHello there, this is Pal Hello there
+            {message}
           </div>
         </div>
       </div>

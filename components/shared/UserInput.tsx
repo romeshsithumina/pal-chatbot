@@ -19,13 +19,23 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 import { Input } from "@/components/ui/input";
+import { ChatRequestOptions } from "ai";
 import * as z from "zod";
 
 const formSchema = z.object({
   input: z.string(),
 });
 
-const UserInput = () => {
+interface UserInputProps {
+  handleSubmit: (
+    e: React.FormEvent<HTMLFormElement>,
+    chatRequestOptions?: ChatRequestOptions
+  ) => void;
+  value: string;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+const UserInput = ({ handleSubmit, value, onChange }: UserInputProps) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -33,17 +43,11 @@ const UserInput = () => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
-  }
-
   return (
     <div className="w-full h-20 m-10 mt-0 rounded-b-[30px] bg-dark-400 text-light-800 flex items-center justify-center">
       <Form {...form}>
         <form
-          onSubmit={form.handleSubmit(onSubmit)}
+          onSubmit={handleSubmit}
           className="flex w-full items-center justify-between"
         >
           <Select>
@@ -66,6 +70,8 @@ const UserInput = () => {
                     {...field}
                     className="bg-dark-400 text-light-800 border-none w-full ml-5 text-lg"
                     placeholder="Ask Pal..."
+                    value={value}
+                    onChange={onChange}
                   />
                 </FormControl>
                 <FormMessage />

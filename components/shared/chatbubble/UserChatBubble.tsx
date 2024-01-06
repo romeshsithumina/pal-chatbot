@@ -1,7 +1,11 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Link from "next/link";
 
-const UserChatBubble = () => {
+interface UserChatBubbleProps {
+  message: string;
+}
+
+const UserChatBubble = ({ message }: UserChatBubbleProps) => {
   return (
     <div className="flex justify-end">
       <div className="py-10">
@@ -18,7 +22,7 @@ const UserChatBubble = () => {
 
         <div className="flex flex-col">
           <div className="bg-primary max-w-[500px] text-light-800 rounded-3xl rounded-tr-none p-4 mr-10">
-            Hello there
+            {message}
           </div>
         </div>
       </div>
