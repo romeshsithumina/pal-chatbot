@@ -1,6 +1,6 @@
 "use client";
 
-import { usePathname } from "next/navigation";
+// import { usePathname } from "next/navigation";
 import ConversationCard from "../ConversationCard";
 
 const chatHistory = [
@@ -25,10 +25,10 @@ const chatHistory = [
 ];
 
 const LeftSidebar = () => {
-  const pathname = usePathname();
+  // const pathname = usePathname();
 
   return (
-    <section className="bg-dark-800 border-dark-300 custom-scrollbar sticky left-0 top-0 flex h-screen flex-col justify-between overflow-y-auto border-r p-4 pt-36 max-sm:hidden lg:w-[266px]">
+    <section className="sticky left-0 top-0 flex h-screen flex-col justify-between overflow-y-auto border-r border-dark-300 bg-dark-800 p-4 pt-36 max-sm:hidden lg:w-[266px]">
       <div className="flex flex-1 flex-col text-light-800">
         {chatHistory.map((chat) => (
           <ConversationCard

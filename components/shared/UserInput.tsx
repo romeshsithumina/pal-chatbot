@@ -16,6 +16,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { zodResolver } from "@hookform/resolvers/zod";
+import * as React from "react";
 import { useForm } from "react-hook-form";
 
 import { Input } from "@/components/ui/input";
@@ -44,17 +45,17 @@ const UserInput = ({ handleSubmit, value, onChange }: UserInputProps) => {
   });
 
   return (
-    <div className="w-full h-20 m-10 mt-0 rounded-b-[30px] bg-dark-400 text-light-800 flex items-center justify-center">
+    <div className="m-10 mt-0 flex h-20 w-full items-center justify-center rounded-b-[30px] bg-dark-400 text-light-800">
       <Form {...form}>
         <form
           onSubmit={handleSubmit}
           className="flex w-full items-center justify-between"
         >
           <Select>
-            <SelectTrigger className="ml-5 w-[100px] h-20 border border-none border-r-dark-400 text-lg">
+            <SelectTrigger className="ml-5 h-20 w-[100px] border border-none border-r-dark-400 text-lg">
               <SelectValue placeholder="Chat" />
             </SelectTrigger>
-            <SelectContent className="text-light-800 text-lg bg-dark-400">
+            <SelectContent className="bg-dark-400 text-lg text-light-800">
               <SelectItem value="chat">Chat</SelectItem>
               <SelectItem value="image">Image</SelectItem>
               <SelectItem value="audio">Audio</SelectItem>
@@ -68,7 +69,7 @@ const UserInput = ({ handleSubmit, value, onChange }: UserInputProps) => {
                 <FormControl>
                   <Input
                     {...field}
-                    className="bg-dark-400 text-light-800 border-none w-full ml-5 text-lg"
+                    className="ml-5 w-full border-none bg-dark-400 text-lg text-light-800"
                     placeholder="Ask Pal..."
                     value={value}
                     onChange={onChange}
