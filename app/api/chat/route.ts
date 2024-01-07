@@ -1,6 +1,7 @@
 import OpenAI from "openai";
 import { OpenAIStream, StreamingTextResponse } from "ai";
 import { NextResponse } from "next/server";
+import { createMessage } from "@/lib/actions/message.action";
 
 // Create an OpenAI API client (that's edge friendly!)
 const openai = new OpenAI({
@@ -15,6 +16,7 @@ export async function POST(req: Request) {
     const { messages } = await req.json();
 
     // Ask OpenAI for a streaming chat completion given the prompt
+    console.log("\nmessages", messages);
     const response = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
       stream: true,
@@ -28,7 +30,19 @@ export async function POST(req: Request) {
     });
 
     // Convert the response into a friendly text-stream
-    const stream = OpenAIStream(response);
+    const stream = OpenAIStream(response, {
+      onCompletion: async (completion: string) => {
+        // This callback is called when the stream completes
+        // You can use this to save the final completion to your database
+        console.log("\ncompletion", completion);
+
+        await createMessage({
+          conversationId: "pal",
+          sender: "assistant",
+          content: completion,
+        });
+      },
+    });
     // Respond with the stream
     return new StreamingTextResponse(stream);
   } catch (error) {
