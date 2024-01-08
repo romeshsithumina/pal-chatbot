@@ -1,6 +1,4 @@
-// @ts-nocheck
-
-import { Schema, models, model, Document } from "mongoose";
+import { Schema, model, Document, models } from "mongoose";
 
 // Interface for the Message model
 export interface IMessage extends Document {
@@ -15,15 +13,12 @@ const MessageSchema = new Schema({
   conversationId: {
     type: String,
     required: true,
-  }, // Reference the Conversation model
+  },
   sender: { type: String, required: true },
   content: { type: String, required: true },
   timestamp: { type: Date, default: Date.now },
 });
 
-// Create the model
-// @ts-ignore
-// const Message = models.Message || model("Message", MessageSchema);
-const Message = model<IMessage>("Message", MessageSchema);
+const Message = models.Message || model<IMessage>("Message", MessageSchema);
 
 export default Message;
