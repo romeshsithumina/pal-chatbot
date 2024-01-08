@@ -31,7 +31,7 @@ export async function POST(req: Request) {
 
     // Convert the response into a friendly text-stream
     const stream = OpenAIStream(response, {
-      onCompletion: async (completion: string) => {
+      async onFinal(completion: string) {
         // This callback is called when the stream completes
         // You can use this to save the final completion to your database
         console.log("\ncompletion", completion);
@@ -39,7 +39,7 @@ export async function POST(req: Request) {
         await createMessage({
           conversationId: "pal",
           sender: "assistant",
-          content: completion,
+          content: "completion",
         });
       },
     });
