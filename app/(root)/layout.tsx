@@ -8,7 +8,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       <Navbar />
       <div className="flex ">
         <LeftSidebar />
-        <section className="flex min-h-screen flex-1 flex-col pt-32 pb-6">
+        <section className="flex min-h-screen flex-1 flex-col pb-6 pt-32">
           <div className=" w-full max-w-5xl">{children}</div>
         </section>
       </div>
