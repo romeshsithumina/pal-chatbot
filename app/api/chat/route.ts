@@ -1,7 +1,7 @@
-import OpenAI from "openai";
+import { createMessage } from "@/lib/actions/message.action";
 import { OpenAIStream, StreamingTextResponse } from "ai";
 import { NextResponse } from "next/server";
-import { createMessage } from "@/lib/actions/message.action";
+import OpenAI from "openai";
 
 // Create an OpenAI API client (that's edge friendly!)
 const openai = new OpenAI({
@@ -22,7 +22,7 @@ export async function POST(req: Request) {
       stream: true,
       messages: [
         {
-          role: "assistant",
+          role: "system",
           content: `Hi! I'm Pal, your friendly chatbot. How can I help you today?`,
         },
         ...messages,
@@ -31,18 +31,19 @@ export async function POST(req: Request) {
 
     // Convert the response into a friendly text-stream
     const stream = OpenAIStream(response, {
-      onCompletion: async (completion: string) => {
+      async onFinal(completion: string) {
         // This callback is called when the stream completes
         // You can use this to save the final completion to your database
         console.log("\ncompletion", completion);
 
         await createMessage({
-          conversationId: "pal",
+          conversationId: "65bf81541e19f0a90546a135",
           sender: "assistant",
           content: completion,
         });
       },
     });
+
     // Respond with the stream
     return new StreamingTextResponse(stream);
   } catch (error) {
