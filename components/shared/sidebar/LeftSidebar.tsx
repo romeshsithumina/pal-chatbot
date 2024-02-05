@@ -1,7 +1,9 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 // import { usePathname } from "next/navigation";
 import ConversationCard from "../ConversationCard";
+import { useRouter } from "next/navigation";
 
 const chatHistory = [
   {
@@ -25,10 +27,19 @@ const chatHistory = [
 ];
 
 const LeftSidebar = () => {
+  const router = useRouter();
   // const pathname = usePathname();
 
+  const handleClick = async () => {
+    router.push("/");
+  };
+
   return (
-    <section className="sticky left-0 top-0 flex h-screen flex-col justify-between overflow-y-auto border-r border-dark-300 bg-dark-800 p-4 pt-36 max-sm:hidden lg:w-[266px]">
+    <section className="sticky left-0 top-0 flex h-screen flex-col justify-between overflow-y-auto border-r border-dark-300 bg-dark-800 p-4 pt-28 max-sm:hidden lg:w-[266px]">
+      <Button className="mb-5 rounded-full" onClick={handleClick}>
+        New Chat
+      </Button>
+      <span className="mb-3 border-b border-dark-300"></span>
       <div className="flex flex-1 flex-col text-light-800">
         {chatHistory.map((chat) => (
           <ConversationCard
