@@ -13,7 +13,11 @@ export const runtime = "edge";
 
 export async function POST(req: Request) {
   try {
-    const { messages } = await req.json();
+    const body = await req.json();
+    console.log("\n\n---------------", body);
+
+    const { messages, conversationId } = body;
+    console.log("conversation id: ", conversationId);
 
     // Ask OpenAI for a streaming chat completion given the prompt
     console.log("\nmessages", messages);
@@ -31,13 +35,25 @@ export async function POST(req: Request) {
 
     // Convert the response into a friendly text-stream
     const stream = OpenAIStream(response, {
+      async onStart() {
+        // This callback is called when the stream starts
+        // You can use this to save the prompt to your database
+
+        const userPrompt = messages[messages.length - 1].content;
+        await createMessage({
+          conversationId,
+          sender: "user",
+          content: userPrompt,
+        });
+      },
+
       async onFinal(completion: string) {
         // This callback is called when the stream completes
         // You can use this to save the final completion to your database
         console.log("\ncompletion", completion);
 
         await createMessage({
-          conversationId: "65bf81541e19f0a90546a135",
+          conversationId,
           sender: "assistant",
           content: completion,
         });
