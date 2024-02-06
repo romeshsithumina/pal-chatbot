@@ -1,7 +1,6 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-// import { usePathname } from "next/navigation";
 import ConversationCard from "../ConversationCard";
 import { usePathname, useRouter } from "next/navigation";
 import { Conversation } from "@/lib/actions/shared.types";
@@ -42,8 +41,9 @@ const LeftSidebar = () => {
         {conversations.map((conversation) => (
           <ConversationCard
             title={conversation.messages[0].content}
-            selected={conversation.id === "1"}
+            selected={conversation.id === pathname.split("/").pop()}
             key={conversation.id}
+            onClick={() => router.push(`/chat/${conversation.id}`)}
           />
         ))}
       </div>
