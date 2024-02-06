@@ -8,12 +8,13 @@ import {
 } from "./shared.types";
 
 export async function createConversation(params: CreateConversationParams) {
-  // const { userId } = params;
+  const { id } = params;
   const userId = "65bf80f91e19f0a90546a134";
 
   try {
     const conversation = await prisma.conversation.create({
       data: {
+        id,
         user: {
           connect: {
             id: userId,

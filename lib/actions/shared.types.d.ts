@@ -1,4 +1,5 @@
 export interface CreateConversationParams {
+  id: string;
   userId: string;
 }
 
