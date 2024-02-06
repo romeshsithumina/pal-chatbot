@@ -1,11 +1,11 @@
 import { createConversation } from "@/lib/actions/conversation.action";
-import ChatClient from "./ChatClient";
+import NewChatClient from "./NewChatClient";
 
 const Page = async () => {
   const { id } = await createConversation({
     userId: "test",
   });
 
-  return <ChatClient conversationId={id} />;
+  return <NewChatClient conversationId={id} />;
 };
 export default Page;

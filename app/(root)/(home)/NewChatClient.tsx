@@ -5,11 +5,11 @@ import { useChat } from "ai/react";
 import { useRouter } from "next/navigation";
 import React from "react";
 
-interface ChatClientProps {
+interface NewChatClientProps {
   conversationId: string;
 }
 
-const ChatClient = ({ conversationId }: ChatClientProps) => {
+const NewChatClient = ({ conversationId }: NewChatClientProps) => {
   const { input, handleInputChange, setInput, append } = useChat({
     api: "/api/chat",
     id: conversationId,
@@ -18,13 +18,13 @@ const ChatClient = ({ conversationId }: ChatClientProps) => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setInput("");
 
     // Send user prompt to chat endpoint
     await append(
       { role: "user", content: input },
       { options: { body: { conversationId } } }
     ).then(() => {
+      setInput("");
       router.push(`/chat/${conversationId}`);
     });
   };
@@ -41,4 +41,4 @@ const ChatClient = ({ conversationId }: ChatClientProps) => {
     </>
   );
 };
-export default ChatClient;
+export default NewChatClient;
