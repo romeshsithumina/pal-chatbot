@@ -4,29 +4,13 @@ import { Button } from "@/components/ui/button";
 // import { usePathname } from "next/navigation";
 import ConversationCard from "../ConversationCard";
 import { useRouter } from "next/navigation";
+import { Conversation } from "@/lib/actions/shared.types";
 
-const chatHistory = [
-  {
-    id: 1,
-    name: "John Doe",
-    message: "Hello, what about you?",
-    time: "10:00",
-  },
-  {
-    id: 2,
-    name: "Jane Smith",
-    message: "I'm fine, thank you! How about you?",
-    time: "10:00",
-  },
-  {
-    id: 3,
-    name: "Bob Johnson",
-    message: "I'm doing well, thank you! What about you?",
-    time: "10:00",
-  },
-];
+interface LeftSidebarProps {
+  conversations: Conversation[];
+}
 
-const LeftSidebar = () => {
+const LeftSidebar = ({ conversations }: LeftSidebarProps) => {
   const router = useRouter();
   // const pathname = usePathname();
 
@@ -41,11 +25,11 @@ const LeftSidebar = () => {
       </Button>
       <span className="mb-3 border-b border-dark-300"></span>
       <div className="flex flex-1 flex-col text-light-800">
-        {chatHistory.map((chat) => (
+        {conversations.map((conversation) => (
           <ConversationCard
-            message={chat.message}
-            selected={chat.id === 1}
-            key={chat.id}
+            title={conversation.messages[0].content}
+            selected={conversation.id === "1"}
+            key={conversation.id}
           />
         ))}
       </div>

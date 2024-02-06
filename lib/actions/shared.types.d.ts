@@ -28,7 +28,7 @@ export type Messages = {
   timestamp: Date;
 };
 
-export type Conversations = {
+export type Conversation = {
   id: string;
   userId: string;
   createdAt: Date;

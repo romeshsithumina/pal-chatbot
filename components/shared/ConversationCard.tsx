@@ -1,14 +1,12 @@
 interface ConversationCardProps {
   selected: boolean;
-  message: string;
+  title: string;
 }
 
-const ConversationCard = ({ selected, message }: ConversationCardProps) => {
+const ConversationCard = ({ selected, title }: ConversationCardProps) => {
   return (
-    <div className={`px-3 mb-1 rounded-xl ${selected ? "bg-dark-400" : ""}`}>
-      <p className="py-2 whitespace-nowrap text-ellipsis overflow-hidden">
-        {message}
-      </p>
+    <div className={`mb-1 rounded-xl px-3 ${selected ? "bg-dark-400" : ""}`}>
+      <p className="truncate py-2">{title}</p>
     </div>
   );
 };
