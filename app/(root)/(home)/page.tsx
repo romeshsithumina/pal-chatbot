@@ -1,10 +1,11 @@
-import { createConversation } from "@/lib/actions/conversation.action";
+import { customAlphabet } from "nanoid";
 import NewChatClient from "./NewChatClient";
 
 const Page = async () => {
-  const { id } = await createConversation({
-    userId: "test",
-  });
+  const alphabet =
+    "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+  const nanoid = customAlphabet(alphabet, 20);
+  const id = nanoid();
 
   return <NewChatClient conversationId={id} />;
 };
