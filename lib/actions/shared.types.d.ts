@@ -2,6 +2,10 @@ export interface CreateConversationParams {
   userId: string;
 }
 
+export interface GetConversationParams {
+  userId: string;
+}
+
 export interface DeleteConversationParams {
   conversationId: string;
 }
@@ -15,3 +19,18 @@ export interface CreateMessageParams {
 export interface GetMessageParams {
   conversationId: string;
 }
+
+export type Messages = {
+  conversationId: string;
+  id: string;
+  role: string;
+  content: string;
+  timestamp: Date;
+};
+
+export type Conversations = {
+  id: string;
+  userId: string;
+  createdAt: Date;
+  messages: Messages[];
+};

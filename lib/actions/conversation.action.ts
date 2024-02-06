@@ -4,6 +4,7 @@ import prisma from "@/lib/prismadb";
 import {
   CreateConversationParams,
   DeleteConversationParams,
+  GetConversationParams,
 } from "./shared.types";
 
 export async function createConversation(params: CreateConversationParams) {
@@ -21,6 +22,29 @@ export async function createConversation(params: CreateConversationParams) {
       },
     });
     return conversation;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
+export async function getConversations(params: GetConversationParams) {
+  // const { userId } = params;
+
+  try {
+    const allConversations = await prisma.conversation.findMany({
+      include: {
+        messages: true, // Include messages for each conversation
+      },
+    });
+
+    // Filter out conversations without messages
+    const conversations = allConversations.filter(
+      (conversation) =>
+        conversation.messages && conversation.messages.length > 0
+    );
+    console.log("conversations", conversations);
+    return conversations;
   } catch (error) {
     console.log(error);
     throw error;
