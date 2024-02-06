@@ -4,7 +4,7 @@ export interface CreateConversationParams {
 
 export interface CreateMessageParams {
   conversationId: string;
-  sender: string;
+  role: string;
   content: string;
 }
 

@@ -4,7 +4,7 @@ import prisma from "@/lib/prismadb";
 import { CreateMessageParams, GetMessageParams } from "./shared.types";
 
 export async function createMessage(params: CreateMessageParams) {
-  const { conversationId, sender, content } = params;
+  const { conversationId, role, content } = params;
   try {
     const message = await prisma.message.create({
       data: {
@@ -13,7 +13,7 @@ export async function createMessage(params: CreateMessageParams) {
             id: conversationId,
           },
         },
-        sender,
+        role,
         content,
       },
     });

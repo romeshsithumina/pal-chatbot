@@ -42,7 +42,7 @@ export async function POST(req: Request) {
         const userPrompt = messages[messages.length - 1].content;
         await createMessage({
           conversationId,
-          sender: "user",
+          role: "user",
           content: userPrompt,
         });
       },
@@ -54,7 +54,7 @@ export async function POST(req: Request) {
 
         await createMessage({
           conversationId,
-          sender: "assistant",
+          role: "assistant",
           content: completion,
         });
       },
