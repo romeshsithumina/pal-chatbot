@@ -5,14 +5,24 @@ import { Button } from "@/components/ui/button";
 import ConversationCard from "../ConversationCard";
 import { useRouter } from "next/navigation";
 import { Conversation } from "@/lib/actions/shared.types";
+import { useEffect, useState } from "react";
+import { getConversations } from "@/lib/actions/conversation.action";
+import { useConversationContext } from "@/contexts/ConversationsContext";
 
-interface LeftSidebarProps {
-  conversations: Conversation[];
-}
-
-const LeftSidebar = ({ conversations }: LeftSidebarProps) => {
+const LeftSidebar = () => {
+  const [conversations, setConversations] = useState<Conversation[]>([]);
+  const { conversationsVersion } = useConversationContext();
   const router = useRouter();
   // const pathname = usePathname();
+
+  useEffect(() => {
+    const fetchConversations = async () => {
+      const data = await getConversations({ userId: "test" });
+      setConversations(data);
+    };
+
+    fetchConversations();
+  }, [conversationsVersion]);
 
   const handleClick = async () => {
     router.push("/");
