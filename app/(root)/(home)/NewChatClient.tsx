@@ -1,6 +1,7 @@
 "use client";
 
 import UserInput from "@/components/shared/UserInput";
+import { createConversation } from "@/lib/actions/conversation.action";
 import { useChat } from "ai/react";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -18,6 +19,8 @@ const NewChatClient = ({ conversationId }: NewChatClientProps) => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    await createConversation({ id: conversationId, userId: "test" });
 
     // Send user prompt to chat endpoint
     await append(
