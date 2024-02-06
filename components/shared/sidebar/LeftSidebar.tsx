@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 // import { usePathname } from "next/navigation";
 import ConversationCard from "../ConversationCard";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Conversation } from "@/lib/actions/shared.types";
 import { useEffect, useState } from "react";
 import { getConversations } from "@/lib/actions/conversation.action";
@@ -13,7 +13,7 @@ const LeftSidebar = () => {
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const { conversationsVersion } = useConversationContext();
   const router = useRouter();
-  // const pathname = usePathname();
+  const pathname = usePathname();
 
   useEffect(() => {
     const fetchConversations = async () => {
@@ -30,7 +30,11 @@ const LeftSidebar = () => {
 
   return (
     <section className="sticky left-0 top-0 flex h-screen flex-col justify-between overflow-y-auto border-r border-dark-300 bg-dark-800 p-4 pt-28 max-sm:hidden lg:w-[266px]">
-      <Button className="mb-5 rounded-full" onClick={handleClick}>
+      <Button
+        className="mb-5 rounded-full text-white"
+        disabled={pathname === "/"}
+        onClick={handleClick}
+      >
         New Chat
       </Button>
       <span className="mb-3 border-b border-dark-300"></span>
