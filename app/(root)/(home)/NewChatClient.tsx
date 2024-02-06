@@ -1,6 +1,7 @@
 "use client";
 
 import UserInput from "@/components/shared/UserInput";
+import { useConversationContext } from "@/contexts/ConversationsContext";
 import { createConversation } from "@/lib/actions/conversation.action";
 import { useChat } from "ai/react";
 import { useRouter } from "next/navigation";
@@ -15,6 +16,7 @@ const NewChatClient = ({ conversationId }: NewChatClientProps) => {
     api: "/api/chat",
     id: conversationId,
   });
+  const { incrementConversationsVersion } = useConversationContext();
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -28,6 +30,7 @@ const NewChatClient = ({ conversationId }: NewChatClientProps) => {
       { options: { body: { conversationId } } }
     ).then(() => {
       setInput("");
+      incrementConversationsVersion();
       router.push(`/chat/${conversationId}`);
     });
   };
