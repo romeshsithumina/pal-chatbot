@@ -28,15 +28,15 @@ const ConversationCard = ({
 
   return (
     <div
-      className={`group relative mb-1 flex cursor-pointer items-center justify-between rounded-xl px-3 duration-300 hover:bg-dark-400 hover:transition-colors ${
+      className={`group relative mb-1 flex cursor-pointer items-center justify-between rounded-xl pl-3 duration-300 hover:transition-colors ${
         selected ? "bg-dark-400" : ""
       }`}
       onClick={onClick}
     >
       <p className="truncate py-2 pr-3">{title}</p>
-      <div className="absolute right-0 top-0 p-2 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+      <div className="absolute right-0 top-0 rounded-xl bg-gradient-to-l from-dark-500 from-25% p-2 opacity-0 transition-opacity duration-300  group-hover:opacity-100">
         <MdDelete
-          className="cursor-pointer text-white"
+          className="cursor-pointer text-white hover:text-red-400"
           size={18}
           onClick={handleDeleteClick}
         />
