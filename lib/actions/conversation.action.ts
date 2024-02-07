@@ -37,6 +37,9 @@ export async function getConversations(params: GetConversationParams) {
       include: {
         messages: true, // Include messages for each conversation
       },
+      orderBy: {
+        createdAt: "desc",
+      },
     });
 
     // Filter out conversations without messages
@@ -44,7 +47,6 @@ export async function getConversations(params: GetConversationParams) {
       (conversation) =>
         conversation.messages && conversation.messages.length > 0
     );
-    console.log("conversations", conversations);
     return conversations;
   } catch (error) {
     console.log(error);
