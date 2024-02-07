@@ -21,6 +21,24 @@ export interface GetMessageParams {
   conversationId: string;
 }
 
+export interface CreateUserParams {
+  clerkId: string;
+  name: string;
+  email: string;
+  pictureURL: string;
+}
+
+export interface UpdateUserParams {
+  clerkId: string;
+  name: string;
+  email: string;
+  pictureURL: string;
+}
+
+export interface DeleteUserParams {
+  clerkId: string;
+}
+
 export type Messages = {
   conversationId: string;
   id: string;
