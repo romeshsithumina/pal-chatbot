@@ -1,4 +1,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { marked } from "marked";
+import parse from "html-react-parser";
 
 interface UserChatBubbleProps {
   message: string;
@@ -21,7 +23,7 @@ const UserChatBubble = ({ message }: UserChatBubbleProps) => {
 
         <div className="flex flex-col">
           <div className="mr-10 max-w-[500px] rounded-3xl rounded-tr-none bg-primary p-4 text-light-800">
-            {message}
+            {parse(marked.parse(message))}
           </div>
         </div>
       </div>
