@@ -37,7 +37,7 @@ const NewChatClient = ({ conversationId }: NewChatClientProps) => {
 
   return (
     <>
-      <div className="m-10 mb-0 h-[480px] w-full flex-nowrap overflow-scroll rounded-t-[30px] bg-dark-500 px-5 text-light-800"></div>
+      <div className="mb-0 h-[480px] w-full flex-nowrap overflow-scroll rounded-t-[30px] bg-dark-500 text-light-800"></div>
 
       <UserInput
         handleSubmit={handleSubmit}

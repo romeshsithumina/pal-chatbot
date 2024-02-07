@@ -36,7 +36,7 @@ interface UserInputProps {
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const UserInput = ({ handleSubmit, value, onChange }: UserInputProps) => {
+const UserInput = ({ value, handleSubmit, onChange }: UserInputProps) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -45,7 +45,7 @@ const UserInput = ({ handleSubmit, value, onChange }: UserInputProps) => {
   });
 
   return (
-    <div className="m-10 mt-0 flex h-20 w-full items-center justify-center rounded-b-[30px] bg-dark-400 text-light-800">
+    <div className="mt-0 flex h-20 w-full items-center justify-center rounded-b-[30px] bg-dark-400 text-light-800">
       <Form {...form}>
         <form
           onSubmit={handleSubmit}
@@ -73,6 +73,7 @@ const UserInput = ({ handleSubmit, value, onChange }: UserInputProps) => {
                     placeholder="Ask Pal..."
                     value={value}
                     onChange={onChange}
+                    autoFocus
                   />
                 </FormControl>
                 <FormMessage />

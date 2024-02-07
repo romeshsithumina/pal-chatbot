@@ -6,12 +6,12 @@ import React from "react";
 const Layout = async ({ children }: { children: React.ReactNode }) => {
   return (
     <ConverastionProvider>
-      <main className="relative bg-dark-800">
+      <main className="w-full bg-dark-800">
         <Navbar />
-        <div className="flex ">
+        <div className="flex w-full">
           <LeftSidebar />
-          <section className="flex min-h-screen flex-1 flex-col pb-6 pt-32">
-            <div className=" w-full max-w-5xl">{children}</div>
+          <section className="min-h-screen w-full pb-6 pt-32">
+            <div className="w-full px-10">{children}</div>
           </section>
         </div>
       </main>

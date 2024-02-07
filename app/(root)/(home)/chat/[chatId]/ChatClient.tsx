@@ -87,11 +87,12 @@ const ChatClient = ({ conversationId, previousChats }: ChatClientProps) => {
     <>
       <div
         ref={chatContainerRef}
-        className="relative m-10 mb-0 h-[480px] w-full flex-nowrap overflow-y-auto rounded-t-[30px] bg-dark-500 px-5 text-light-800"
+        className="relative mb-0 h-[480px] w-full flex-nowrap overflow-y-auto rounded-t-[30px] bg-dark-500 text-light-800 focus-visible:outline-none"
         onScroll={handleScroll}
+        autoFocus={false}
       >
         {messages.map((m: any) => (
-          <div key={m.id}>
+          <div key={m.id} className="px-5">
             {m.role === "user" ? (
               <UserChatBubble message={m.content} />
             ) : (
