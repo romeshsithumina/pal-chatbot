@@ -63,8 +63,12 @@ const UserInput = ({
             </SelectTrigger>
             <SelectContent className="bg-dark-400 text-lg text-light-800">
               <SelectItem value="chat">Chat</SelectItem>
-              <SelectItem value="image">Image</SelectItem>
-              <SelectItem value="audio">Audio</SelectItem>
+              <SelectItem value="image" disabled>
+                Image
+              </SelectItem>
+              <SelectItem value="audio" disabled>
+                Audio
+              </SelectItem>
             </SelectContent>
           </Select>
 
@@ -79,8 +83,9 @@ const UserInput = ({
                     placeholder="Ask Pal..."
                     value={value}
                     onChange={onChange}
-                    autoFocus
                     disabled={disabled}
+                    autoComplete="off"
+                    autoFocus
                   />
                 </FormControl>
                 <FormMessage />

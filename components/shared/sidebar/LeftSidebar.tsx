@@ -37,7 +37,7 @@ const LeftSidebar = () => {
         New Chat
       </Button>
       <span className="mb-3 border-b border-dark-300"></span>
-      <div className="flex flex-1 flex-col text-light-800">
+      <div className="flex flex-1 flex-col overflow-scroll text-light-800">
         {conversations.map((conversation) => (
           <ConversationCard
             conversationId={conversation.id}
