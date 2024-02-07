@@ -1,6 +1,7 @@
 import { useConversationContext } from "@/contexts/ConversationsContext";
 import { deleteConversation } from "@/lib/actions/conversation.action";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { MdDelete } from "react-icons/md";
 
 interface ConversationCardProps {
@@ -17,23 +18,30 @@ const ConversationCard = ({
   onClick,
 }: ConversationCardProps) => {
   const { incrementConversationsVersion } = useConversationContext();
+  const [isDeleting, setIsDeleting] = useState(false);
   const router = useRouter();
 
   const handleDeleteClick = async () => {
-    await deleteConversation({ conversationId }).then(() => {
-      incrementConversationsVersion();
-      router.push("/");
-    });
+    setIsDeleting(true);
+    await deleteConversation({ conversationId })
+      .then(() => {
+        incrementConversationsVersion();
+        router.push("/");
+      })
+      .finally(() => {
+        setIsDeleting(false);
+      });
   };
 
   return (
     <div
       className={`group relative mb-1 flex cursor-pointer items-center justify-between rounded-xl pl-3 duration-300 hover:transition-colors ${
         selected ? "bg-dark-400" : ""
-      }`}
-      onClick={onClick}
+      } ${isDeleting ? "pointer-events-none opacity-50" : ""}`}
     >
-      <p className="truncate py-2 pr-5">{title}</p>
+      <p className="truncate py-2 pr-5" onClick={onClick}>
+        {title}
+      </p>
       <div className="absolute right-0 top-0 rounded-xl bg-gradient-to-l from-dark-500 from-25% p-2 opacity-0 transition-opacity duration-300  group-hover:opacity-100">
         <MdDelete
           className="cursor-pointer text-white hover:text-red-400"
