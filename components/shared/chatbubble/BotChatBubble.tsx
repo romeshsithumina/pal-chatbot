@@ -7,6 +7,16 @@ interface BotChatBubbleProps {
 }
 
 const BotChatBubble = ({ message }: BotChatBubbleProps) => {
+  console.log(
+    "markdown parsed message: ",
+    marked.parse(message, { async: false, gfm: true }).toString()
+  );
+
+  console.log(
+    "html parsed message: ",
+    parse(marked.parse(message, { async: false, gfm: true }).toString())
+  );
+
   return (
     <div className="">
       <div className=" py-10">
@@ -24,7 +34,9 @@ const BotChatBubble = ({ message }: BotChatBubbleProps) => {
         </div>
         <div className="flex flex-col">
           <div className="ml-10 max-w-[500px] rounded-3xl rounded-tl-none bg-dark-400 p-4 text-light-800">
-            {parse(marked.parse(message))}
+            {parse(
+              marked.parse(message, { async: false, gfm: true }).toString()
+            )}
           </div>
         </div>
       </div>
