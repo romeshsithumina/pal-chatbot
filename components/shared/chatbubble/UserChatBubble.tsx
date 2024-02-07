@@ -20,7 +20,7 @@ const UserChatBubble = ({ message }: UserChatBubbleProps) => {
         </div>
 
         <div className="flex flex-col">
-          <div className="bg-primary max-w-[500px] text-light-800 rounded-3xl rounded-tr-none p-4 mr-10">
+          <div className="mr-10 max-w-[500px] rounded-3xl rounded-tr-none bg-primary p-4 text-light-800">
             {message}
           </div>
         </div>

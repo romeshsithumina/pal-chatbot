@@ -40,6 +40,7 @@ const LeftSidebar = () => {
       <div className="flex flex-1 flex-col text-light-800">
         {conversations.map((conversation) => (
           <ConversationCard
+            conversationId={conversation.id}
             title={conversation.messages[0].content}
             selected={conversation.id === pathname.split("/").pop()}
             key={conversation.id}

@@ -100,10 +100,13 @@ const ChatClient = ({ conversationId, previousChats }: ChatClientProps) => {
           </div>
         ))}
         <button
-          className={`sticky bottom-5 right-5 float-end rounded-full bg-blue-500 p-2 text-white opacity-70 transition-opacity duration-300 hover:opacity-100 ${
-            showScrollToBottomButton ? "" : "opacity-0"
+          className={`sticky bottom-5 right-5 float-end rounded-full bg-blue-500 p-2 text-white transition-opacity duration-300  ${
+            showScrollToBottomButton
+              ? "opacity-70 hover:opacity-100"
+              : "opacity-0"
           }`}
           onClick={smoothScrollToBottom}
+          disabled={!showScrollToBottomButton}
         >
           <FaArrowDown />
         </button>
