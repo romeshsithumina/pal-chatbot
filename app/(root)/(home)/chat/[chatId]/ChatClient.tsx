@@ -89,7 +89,7 @@ const ChatClient = ({ conversationId, previousChats }: ChatClientProps) => {
     <>
       <div
         ref={chatContainerRef}
-        className="relative mb-0 h-[480px] w-full flex-nowrap overflow-y-auto rounded-t-[30px] bg-dark-500 text-light-800 focus-visible:outline-none"
+        className="scrollbar-thin relative mb-0 h-[480px] w-full flex-nowrap overflow-y-auto rounded-t-[30px] bg-dark-500 text-light-800 focus-visible:outline-none"
         onScroll={handleScroll}
         autoFocus={false}
       >

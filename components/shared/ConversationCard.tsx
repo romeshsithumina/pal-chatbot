@@ -33,7 +33,7 @@ const ConversationCard = ({
       }`}
       onClick={onClick}
     >
-      <p className="truncate py-2 pr-3">{title}</p>
+      <p className="truncate py-2 pr-5">{title}</p>
       <div className="absolute right-0 top-0 rounded-xl bg-gradient-to-l from-dark-500 from-25% p-2 opacity-0 transition-opacity duration-300  group-hover:opacity-100">
         <MdDelete
           className="cursor-pointer text-white hover:text-red-400"
