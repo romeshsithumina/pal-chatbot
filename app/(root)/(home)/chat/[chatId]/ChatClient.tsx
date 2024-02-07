@@ -18,20 +18,22 @@ const ChatClient = ({ conversationId, previousChats }: ChatClientProps) => {
   const [showScrollToBottomButton, setShowScrollToBottomButton] =
     useState(false);
 
-  const { messages, input, handleInputChange, append, setInput } = useChat({
-    api: "/api/chat",
-    id: conversationId,
-    initialMessages: previousChats,
-  });
+  const { messages, input, isLoading, handleInputChange, append, setInput } =
+    useChat({
+      api: "/api/chat",
+      id: conversationId,
+      initialMessages: previousChats,
+    });
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setInput("");
+    setShouldScrollToBottom(true);
 
     await append(
       { role: "user", content: input },
       { options: { body: { conversationId } } }
     ).then(() => {
-      setInput("");
       setShouldScrollToBottom(true); // Trigger scroll to bottom after new message
     });
   };
@@ -117,6 +119,7 @@ const ChatClient = ({ conversationId, previousChats }: ChatClientProps) => {
         handleSubmit={handleSubmit}
         onChange={handleInputChange}
         value={input}
+        disabled={isLoading}
       />
     </>
   );

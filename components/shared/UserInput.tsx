@@ -33,10 +33,16 @@ interface UserInputProps {
     chatRequestOptions?: ChatRequestOptions
   ) => void;
   value: string;
+  disabled: boolean;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const UserInput = ({ value, handleSubmit, onChange }: UserInputProps) => {
+const UserInput = ({
+  value,
+  disabled,
+  handleSubmit,
+  onChange,
+}: UserInputProps) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -74,13 +80,18 @@ const UserInput = ({ value, handleSubmit, onChange }: UserInputProps) => {
                     value={value}
                     onChange={onChange}
                     autoFocus
+                    disabled={disabled}
                   />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          <Button type="submit" className="ml-2 mr-5 rounded-full">
+          <Button
+            disabled={disabled}
+            type="submit"
+            className="ml-2 mr-5 rounded-full"
+          >
             Submit
           </Button>
         </form>

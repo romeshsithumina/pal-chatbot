@@ -12,7 +12,7 @@ interface NewChatClientProps {
 }
 
 const NewChatClient = ({ conversationId }: NewChatClientProps) => {
-  const { input, handleInputChange, setInput, append } = useChat({
+  const { input, isLoading, handleInputChange, setInput, append } = useChat({
     api: "/api/chat",
     id: conversationId,
   });
@@ -23,15 +23,15 @@ const NewChatClient = ({ conversationId }: NewChatClientProps) => {
     e.preventDefault();
 
     await createConversation({ id: conversationId, userId: "test" });
+    router.push(`/chat/${conversationId}`);
+    setInput("");
 
     // Send user prompt to chat endpoint
     await append(
       { role: "user", content: input },
       { options: { body: { conversationId } } }
     ).then(() => {
-      setInput("");
       incrementConversationsVersion();
-      router.push(`/chat/${conversationId}`);
     });
   };
 
@@ -43,6 +43,7 @@ const NewChatClient = ({ conversationId }: NewChatClientProps) => {
         handleSubmit={handleSubmit}
         onChange={handleInputChange}
         value={input}
+        disabled={isLoading}
       />
     </>
   );
