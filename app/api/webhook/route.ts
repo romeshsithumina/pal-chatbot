@@ -65,7 +65,7 @@ export async function POST(req: Request) {
       email: email_addresses[0].email_address,
       pictureURL: image_url,
     });
-    return NextResponse.json(newUser);
+    return NextResponse.json({ body: { newUser } });
   }
 
   if (eventType === "user.updated") {
@@ -78,7 +78,7 @@ export async function POST(req: Request) {
       email: email_addresses[0].email_address,
       pictureURL: image_url,
     });
-    return NextResponse.json(updatedUser);
+    return NextResponse.json({ body: { updatedUser } });
   }
 
   if (eventType === "user.deleted") {
@@ -88,7 +88,7 @@ export async function POST(req: Request) {
     const deletedUser = await deleteUser({
       clerkId: id as string,
     });
-    return NextResponse.json(deletedUser);
+    return NextResponse.json({ body: { deletedUser } });
   }
 
   return new Response("", { status: 200 });
