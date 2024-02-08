@@ -10,8 +10,8 @@ const Layout = async ({ children }: { children: React.ReactNode }) => {
         <Navbar />
         <div className="flex w-full">
           <LeftSidebar />
-          <section className="min-h-screen w-full pb-6 pt-32">
-            <div className="w-full px-10">{children}</div>
+          <section className="min-h-screen w-full px-5 pb-6 pt-32 sm:px-10">
+            <div className="w-full ">{children}</div>
           </section>
         </div>
       </main>

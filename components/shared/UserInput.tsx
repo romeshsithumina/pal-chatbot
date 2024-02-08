@@ -24,7 +24,7 @@ import { ChatRequestOptions } from "ai";
 import * as z from "zod";
 
 const formSchema = z.object({
-  input: z.string(),
+  input: z.string().min(1, { message: "Please enter a message" }),
 });
 
 interface UserInputProps {
@@ -51,17 +51,17 @@ const UserInput = ({
   });
 
   return (
-    <div className="mt-0 flex h-20 w-full items-center justify-center rounded-b-[30px] bg-dark-400 text-light-800">
+    <div className="mt-0 flex h-16 w-full items-center justify-center rounded-b-[30px] bg-dark-400 text-light-800 md:h-20">
       <Form {...form}>
         <form
           onSubmit={handleSubmit}
           className="flex w-full items-center justify-between"
         >
           <Select>
-            <SelectTrigger className="ml-5 h-20 w-[100px] border border-none border-r-dark-400 text-lg">
+            <SelectTrigger className="ml-3 h-20 w-20 border border-none border-r-dark-400 text-sm md:ml-5 md:w-24 md:text-lg">
               <SelectValue placeholder="Chat" />
             </SelectTrigger>
-            <SelectContent className="bg-dark-400 text-lg text-light-800">
+            <SelectContent className="bg-dark-400 text-sm text-light-800 md:text-lg">
               <SelectItem value="chat">Chat</SelectItem>
               <SelectItem value="image" disabled>
                 Image
@@ -73,13 +73,14 @@ const UserInput = ({
           </Select>
 
           <FormField
+            control={form.control}
             name="input"
             render={({ field }) => (
               <FormItem className="flex-1">
                 <FormControl>
                   <Input
                     {...field}
-                    className="ml-5 w-full border-none bg-dark-400 text-lg text-light-800"
+                    className="ml-0 w-full border-none bg-dark-400 text-sm text-light-800 md:text-lg lg:ml-5"
                     placeholder="Ask Pal..."
                     value={value}
                     onChange={onChange}
@@ -93,9 +94,9 @@ const UserInput = ({
             )}
           />
           <Button
-            disabled={disabled}
+            disabled={disabled || value === ""}
             type="submit"
-            className="ml-2 mr-5 rounded-full"
+            className="ml-2 mr-3 rounded-full text-xs md:mr-5 md:text-base"
           >
             Submit
           </Button>
