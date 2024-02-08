@@ -1,12 +1,31 @@
+"use client";
+
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { marked } from "marked";
+import { User } from "@/lib/actions/shared.types";
+import { getUser } from "@/lib/actions/user.action";
+import { useAuth } from "@clerk/nextjs";
 import parse from "html-react-parser";
+import { marked } from "marked";
+import { useEffect, useState } from "react";
 
 interface UserChatBubbleProps {
   message: string;
 }
 
 const UserChatBubble = ({ message }: UserChatBubbleProps) => {
+  const [currentUser, setCurrentUser] = useState<User>();
+  const { userId } = useAuth();
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      if (userId) {
+        const user = await getUser({ clerkId: userId });
+        setCurrentUser(user as User);
+      }
+    };
+    fetchUser();
+  }, [userId]);
+
   return (
     <div className="flex justify-end">
       <div className="py-6 sm:py-10">
@@ -16,7 +35,7 @@ const UserChatBubble = ({ message }: UserChatBubbleProps) => {
           </div>
 
           <Avatar className="h-7 w-7 sm:h-10 sm:w-10">
-            <AvatarImage src="https://github.com/shadcn.png" />
+            <AvatarImage src={currentUser?.pictureURL as string} />
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
         </div>

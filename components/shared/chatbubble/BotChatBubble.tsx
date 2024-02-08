@@ -7,16 +7,6 @@ interface BotChatBubbleProps {
 }
 
 const BotChatBubble = ({ message }: BotChatBubbleProps) => {
-  console.log(
-    "markdown parsed message: ",
-    marked.parse(message, { async: false, gfm: true }).toString()
-  );
-
-  console.log(
-    "html parsed message: ",
-    parse(marked.parse(message, { async: false, gfm: true }).toString())
-  );
-
   return (
     <div className="">
       <div className="py-6 sm:py-10">
