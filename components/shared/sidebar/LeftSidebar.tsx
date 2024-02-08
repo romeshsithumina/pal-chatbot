@@ -53,7 +53,7 @@ const LeftSidebar = () => {
           {conversations.map((conversation) => (
             <ConversationCard
               conversationId={conversation.id}
-              title={conversation.messages[0].content}
+              title={conversation.messages[0]?.content}
               selected={conversation.id === pathname.split("/").pop()}
               key={conversation.id}
               onClick={() => router.push(`/chat/${conversation.id}`)}

@@ -7,7 +7,7 @@ import { MdDelete } from "react-icons/md";
 
 interface ConversationCardProps {
   selected: boolean;
-  title: string;
+  title?: string;
   conversationId: string;
   onClick: () => void;
 }
