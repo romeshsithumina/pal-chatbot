@@ -42,7 +42,11 @@ const ConversationCard = ({
       <p className="truncate py-2 pr-5" onClick={onClick}>
         {title}
       </p>
-      <div className="absolute right-0 top-0 rounded-xl bg-gradient-to-l from-dark-500 from-25% p-2 opacity-0 transition-opacity duration-300  group-hover:opacity-100">
+      <div
+        className={`absolute right-0 top-0 rounded-xl bg-gradient-to-l from-dark-500 from-25% p-2 duration-300 lg:visible lg:opacity-0 lg:transition-opacity lg:group-hover:opacity-100 ${
+          selected ? "visible lg:visible" : "invisible"
+        }`}
+      >
         <MdDelete
           className="cursor-pointer text-white hover:text-red-400"
           size={18}
