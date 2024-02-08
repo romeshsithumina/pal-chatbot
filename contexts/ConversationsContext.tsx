@@ -1,7 +1,10 @@
 "use client";
+import { Conversation } from "@/lib/actions/shared.types";
 import React, { createContext, useContext, useState, ReactNode } from "react";
 
 interface ConversationContextProps {
+  conversations: Conversation[];
+  setConversations: React.Dispatch<React.SetStateAction<Conversation[]>>;
   conversationsVersion: number;
   incrementConversationsVersion: () => void;
 }
@@ -13,6 +16,7 @@ const ConversationContext = createContext<ConversationContextProps | undefined>(
 export const ConverastionProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
+  const [conversations, setConversations] = useState<Conversation[]>([]);
   const [conversationsVersion, setConversationsVersion] = useState(0);
 
   const incrementConversationsVersion = () => {
@@ -22,6 +26,8 @@ export const ConverastionProvider: React.FC<{ children: ReactNode }> = ({
   return (
     <ConversationContext.Provider
       value={{
+        conversations,
+        setConversations,
         conversationsVersion,
         incrementConversationsVersion,
       }}
