@@ -3,6 +3,7 @@
 import UserInput from "@/components/shared/UserInput";
 import { useConversationContext } from "@/contexts/ConversationsContext";
 import { createConversation } from "@/lib/actions/conversation.action";
+import { useAuth } from "@clerk/nextjs";
 import { useChat } from "ai/react";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -18,11 +19,14 @@ const NewChatClient = ({ conversationId }: NewChatClientProps) => {
   });
   const { incrementConversationsVersion } = useConversationContext();
   const router = useRouter();
+  const { userId } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    await createConversation({ id: conversationId, userId: "test" });
+    await createConversation({ id: conversationId, userId }).then(() => {
+      incrementConversationsVersion();
+    });
     router.push(`/chat/${conversationId}`);
     setInput("");
 

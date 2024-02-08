@@ -8,21 +8,22 @@ import {
 } from "./shared.types";
 
 export async function createConversation(params: CreateConversationParams) {
-  const { id } = params;
-  const userId = "65bf80f91e19f0a90546a134";
+  const { id, userId } = params;
 
   try {
-    const conversation = await prisma.conversation.create({
-      data: {
-        id,
-        user: {
-          connect: {
-            id: userId,
+    if (userId) {
+      const conversation = await prisma.conversation.create({
+        data: {
+          id,
+          user: {
+            connect: {
+              clerkId: userId,
+            },
           },
         },
-      },
-    });
-    return conversation;
+      });
+      return conversation;
+    }
   } catch (error) {
     console.log(error);
     throw error;
@@ -30,23 +31,23 @@ export async function createConversation(params: CreateConversationParams) {
 }
 
 export async function getConversations(params: GetConversationParams) {
-  // const { userId } = params;
+  const { userId } = params;
 
   try {
-    const allConversations = await prisma.conversation.findMany({
+    const conversations = await prisma.conversation.findMany({
+      where: {
+        user: {
+          clerkId: userId,
+        },
+      },
       include: {
-        messages: true, // Include messages for each conversation
+        messages: true,
       },
       orderBy: {
         createdAt: "desc",
       },
     });
 
-    // Filter out conversations without messages
-    const conversations = allConversations.filter(
-      (conversation) =>
-        conversation.messages && conversation.messages.length > 0
-    );
     return conversations;
   } catch (error) {
     console.log(error);
@@ -58,11 +59,19 @@ export async function deleteConversation(params: DeleteConversationParams) {
   const { conversationId } = params;
 
   try {
+    await prisma.message.deleteMany({
+      where: {
+        conversationId,
+      },
+    });
+
     const conversation = await prisma.conversation.delete({
       where: {
         id: conversationId,
       },
     });
+
+    console.log("conversation deleted", conversation);
     return conversation;
   } catch (error) {
     console.log(error);
