@@ -6,6 +6,7 @@ import { getUser } from "@/lib/actions/user.action";
 import { useAuth } from "@clerk/nextjs";
 import parse from "html-react-parser";
 import { marked } from "marked";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
 interface UserChatBubbleProps {
@@ -36,7 +37,14 @@ const UserChatBubble = ({ message }: UserChatBubbleProps) => {
 
           <Avatar className="h-7 w-7 sm:h-10 sm:w-10">
             <AvatarImage src={currentUser?.pictureURL as string} />
-            <AvatarFallback>CN</AvatarFallback>
+            <AvatarFallback>
+              <Image
+                src={"/images/default-avatar.svg"}
+                alt="avatar"
+                width={40}
+                height={40}
+              />
+            </AvatarFallback>
           </Avatar>
         </div>
 
