@@ -17,6 +17,7 @@ const ChatClient = ({ conversationId, previousChats }: ChatClientProps) => {
   const [shouldScrollToBottom, setShouldScrollToBottom] = useState(true);
   const [showScrollToBottomButton, setShowScrollToBottomButton] =
     useState(false);
+  const [intervalId, setIntervalId] = useState<any>(null);
 
   const { messages, input, isLoading, handleInputChange, append, setInput } =
     useChat({
@@ -43,12 +44,38 @@ const ChatClient = ({ conversationId, previousChats }: ChatClientProps) => {
     if (chatContainerRef.current && shouldScrollToBottom) {
       chatContainerRef.current.scrollTop =
         chatContainerRef.current.scrollHeight;
+      smoothScrollToBottom();
       setShouldScrollToBottom(false);
     }
   }, [messages, shouldScrollToBottom]);
 
+  // Automatically scroll to the bottom when the openai stream starts
+  useEffect(() => {
+    let invId: any;
+
+    if (isLoading) {
+      invId = setInterval(() => {
+        setShouldScrollToBottom(true);
+      }, 1000);
+
+      setIntervalId(() => invId);
+
+      return () => {
+        clearInterval(invId); // Clear the interval using the correct ID
+      };
+    }
+  }, [isLoading]);
+
+  // Cleanup the interval on component unmount
+  useEffect(() => {
+    return () => {
+      clearInterval(intervalId); // Clear the interval using the correct ID
+    };
+  }, [intervalId]);
+
   // Handle scroll event on the outer div
   const handleScroll = () => {
+    clearInterval(intervalId);
     if (chatContainerRef.current) {
       const isScrolledToBottom =
         chatContainerRef.current.scrollHeight -
