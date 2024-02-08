@@ -4,8 +4,27 @@ import prisma from "@/lib/prismadb";
 import {
   CreateUserParams,
   DeleteUserParams,
+  GetUserParams,
   UpdateUserParams,
 } from "./shared.types";
+
+export async function getUser(params: GetUserParams) {
+  const { clerkId } = params;
+  const currentUser = await prisma.user
+    .findUnique({
+      where: {
+        clerkId,
+      },
+    })
+    .catch(async (e: any) => {
+      console.log(e);
+    })
+    .finally(async () => {
+      await prisma.$disconnect();
+    });
+
+  return currentUser;
+}
 
 export async function createUser(params: CreateUserParams) {
   const { clerkId, name, email, pictureURL } = params;
