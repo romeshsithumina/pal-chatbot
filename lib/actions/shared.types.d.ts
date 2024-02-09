@@ -1,6 +1,6 @@
 export interface CreateConversationParams {
   id: string;
-  userId: string;
+  userId: string | undefined | null;
 }
 
 export interface GetConversationParams {
@@ -9,6 +9,7 @@ export interface GetConversationParams {
 
 export interface DeleteConversationParams {
   conversationId: string;
+  userId: string;
 }
 
 export interface CreateMessageParams {

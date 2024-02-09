@@ -1,12 +1,13 @@
 import { useConversationContext } from "@/contexts/ConversationsContext";
 import { deleteConversation } from "@/lib/actions/conversation.action";
+import { useAuth } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { MdDelete } from "react-icons/md";
 
 interface ConversationCardProps {
   selected: boolean;
-  title: string;
+  title?: string;
   conversationId: string;
   onClick: () => void;
 }
@@ -19,18 +20,18 @@ const ConversationCard = ({
 }: ConversationCardProps) => {
   const { incrementConversationsVersion } = useConversationContext();
   const [isDeleting, setIsDeleting] = useState(false);
+  const { userId } = useAuth();
   const router = useRouter();
 
   const handleDeleteClick = async () => {
-    setIsDeleting(true);
-    await deleteConversation({ conversationId })
-      .then(() => {
+    if (userId) {
+      setIsDeleting(true);
+      await deleteConversation({ conversationId, userId }).then(() => {
         incrementConversationsVersion();
         router.push("/");
-      })
-      .finally(() => {
         setIsDeleting(false);
       });
+    }
   };
 
   return (
