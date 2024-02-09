@@ -24,9 +24,7 @@ const NewChatClient = ({ conversationId }: NewChatClientProps) => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    await createConversation({ id: conversationId, userId }).then(() => {
-      incrementConversationsVersion();
-    });
+    await createConversation({ id: conversationId, userId });
     router.push(`/chat/${conversationId}`);
     setInput("");
 

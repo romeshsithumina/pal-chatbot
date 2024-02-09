@@ -40,8 +40,11 @@ const ConversationCard = ({
         selected ? "bg-dark-400" : ""
       } ${isDeleting ? "pointer-events-none opacity-50" : ""}`}
     >
-      <p className="truncate py-2 pr-5" onClick={onClick}>
-        {title}
+      <p
+        className={`truncate py-2 pr-5 ${title ? "" : "text-yellow-500"}`}
+        onClick={onClick}
+      >
+        {title || "Loading..."}
       </p>
       <div
         className={`absolute right-0 top-0 rounded-xl bg-gradient-to-l from-dark-500 from-25% p-2 duration-300 lg:visible lg:opacity-0 lg:transition-opacity lg:group-hover:opacity-100 ${
