@@ -6,6 +6,7 @@ import {
   DeleteConversationParams,
   GetConversationParams,
 } from "./shared.types";
+import { revalidatePath } from "next/cache";
 
 export async function createConversation(params: CreateConversationParams) {
   const { id, userId } = params;
@@ -22,6 +23,7 @@ export async function createConversation(params: CreateConversationParams) {
           },
         },
       });
+      revalidatePath("/");
       return conversation;
     }
   } catch (error) {
@@ -72,6 +74,7 @@ export async function deleteConversation(params: DeleteConversationParams) {
     });
 
     console.log("conversation deleted", conversation);
+    revalidatePath("/");
     return conversation;
   } catch (error) {
     console.log(error);

@@ -2,6 +2,7 @@
 
 import prisma from "@/lib/prismadb";
 import { CreateMessageParams, GetMessageParams } from "./shared.types";
+import { revalidatePath } from "next/cache";
 
 export async function createMessage(params: CreateMessageParams) {
   const { conversationId, role, content } = params;
@@ -17,6 +18,7 @@ export async function createMessage(params: CreateMessageParams) {
         content,
       },
     });
+    revalidatePath("/", "layout");
     return message;
   } catch (error) {
     console.log(error);
